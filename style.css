@@ -213,6 +213,7 @@ body{
     width: 98%;
     background-color: #ffffff;
     position: relative;
+    cursor: pointer;
 }
 .circle{
     width: 12px;

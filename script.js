@@ -1,6 +1,17 @@
 console.log("JS Started")
 let currentSong = new Audio();
 
+function secondsToMinutesSeconds(seconds) {
+    if(isNaN(seconds) || seconds < 0){
+        return "Invalid input";
+    }
+
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60); // Ensure no decimals
+
+    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
 async function getSongs() {
     
     let a = await fetch("http://127.0.0.1:5500/songs/");
@@ -34,13 +45,10 @@ const playMusic = (song, pause=false)=>{
     document.querySelector(".songName").innerHTML = decodeURI(song) ;
     document.querySelector(".songTime").innerHTML = "00:00 / 00: 00";
 
-
-    // audio.addEventListener("loadeddata", ()=>{
-    //     // console.log(audio.duration, audio.currentSrc, audio.currentTime)
-    // })
 }
 
 async function main(){
+
     //Get the list of songs
     let songs = await getSongs();
     // console.log(songs)
@@ -85,7 +93,17 @@ async function main(){
 
         //Add eventListener to timeduration 
         currentSong.addEventListener("timeupdate",()=>{
-            console.log(currentSong.currentTime, currentSong.duration)
+            console.log(currentSong.currentTime, currentSong.duration);
+            document.querySelector(".songTime").innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)}/${secondsToMinutesSeconds(currentSong.duration)}`
+            document.querySelector(".circle").style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%"
+        })
+
+        //Add eventListener to seekbar 
+        document.querySelector(".seekbar").addEventListener("click", (e)=>{
+            let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100
+            document.querySelector(".circle").style.left = percent + "%"
+
+            currentSong.currentTime = (currentSong.duration * percent) / 100
         })
     })
 }
