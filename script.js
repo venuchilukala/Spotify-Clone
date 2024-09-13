@@ -1,5 +1,6 @@
 console.log("JS Started")
 let currentSong = new Audio();
+let songs;
 
 function secondsToMinutesSeconds(seconds) {
     if(isNaN(seconds) || seconds < 0){
@@ -50,7 +51,7 @@ const playMusic = (song, pause=false)=>{
 async function main(){
 
     //Get the list of songs
-    let songs = await getSongs();
+    songs = await getSongs();
     // console.log(songs)
 
     playMusic(songs[0],true)
@@ -102,9 +103,37 @@ async function main(){
         document.querySelector(".seekbar").addEventListener("click", (e)=>{
             let percent = (e.offsetX / e.target.getBoundingClientRect().width) * 100
             document.querySelector(".circle").style.left = percent + "%"
-
             currentSong.currentTime = (currentSong.duration * percent) / 100
         })
     })
+
+    //Add event Listener to hamburger
+    document.querySelector(".hamburger").addEventListener("click",()=>{
+        document.querySelector(".left").style.left = "0";
+    })
+
+    //Add event Listener to close
+    document.querySelector(".close").addEventListener("click",()=>{
+        document.querySelector(".left").style.left = "-100%";
+    })
+
+    //Add event Listener to previous button
+    previous.addEventListener("click", ()=>{
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        console.log(index)
+        if((index-1) >= 0){
+            playMusic(songs[index - 1])
+        }
+    })
+
+    //Add event Listener to next button
+    next.addEventListener("click",()=>{
+        let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
+        console.log(index)
+        if((index+1) < songs.length){
+            playMusic(songs[index + 1])
+        }
+    })
+
 }
 main()
