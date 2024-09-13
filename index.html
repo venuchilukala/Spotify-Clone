@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify</title>
+    <link rel="icon" href="Assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="utility.css">
+</head>
+<body>
+    <div class="header flex items-center">
+        <img src="Assets/logo.svg" alt="logo" class="logo invert">
+        <div class="flex s-c">
+            <img src="Assets/home.svg" alt="home" class="invert home">
+            <div class="search-container">
+                <input type="text" placeholder="search the song" class="search">
+                <img src="Assets/search.svg" alt="search" class="search-logo invert">
+            </div>
+        </div>
+        <img src="Assets/user.svg" alt="user" class="invert home user">
+
+    </div>
+    <div class="container flex">
+        <div class="left">
+            <div class="flex left-header">
+                <div class="flex items-center lib">
+                    <img src="Assets/library.svg" alt="library" class="invert">
+                    <p>Your Library</p>
+                </div>
+                <i class="fa-regular fa-plus"></i>
+            </div>
+            <div class="songList">
+                <ul>
+                    <!-- <li>
+                        <img src="Assets/music.svg" class="invert" alt="">
+                        <div class="info">
+                            <div>Song Name</div>
+                            <div>Song Artist</div>
+                        </div>
+                        <div class="playNow flex">
+                            <span>Play Now</span>
+                            <img src="Assets/play.svg" class="invert" alt="">
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+
+        <div class="right">
+            <h2>Your Playlist</h2>
+
+            <div class="card-container flex">
+                <div class="card">
+                    <img src="Assets/card.jpeg" alt="card" class="card-img">
+                    <p>Arjit Singh</p>
+                </div>
+                <div class="card">
+                    <img src="Assets/card.jpeg" alt="card" class="card-img">
+                    <p>Arjit Singh</p>
+                </div>
+            </div>
+
+            <div class="footer flex">
+                <div class="flex links">
+                    <ul>
+                        <li>Company</li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Jobs</a></li>
+                        <li><a href="#">For the Record</a></li>
+                    </ul>
+                    <ul>
+                        <li>Communities</li>
+                        <li><a href="#">For Artists</a></li>
+                        <li><a href="#">Developers</a></li>
+                        <li><a href="#">Advertising</a></li>
+                        <li><a href="#">Investors</a></li>
+                        <li><a href="#">Vendors</a></li>
+                    </ul>
+                    <ul>
+                        <li>Useful links</li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Free Mobile App</a></li>
+                    </ul>
+                    <ul>
+                        <li>Spotify Plans</li>
+                        <li><a href="#">Premium Individual</a></li>
+                        <li><a href="#">Premium Duo</a></li>
+                        <li><a href="#">Premium Family</a></li>
+                        <li><a href="#">Premium Student</a></li>
+                        <li><a href="#">Spotify Free</a></li>
+                    </ul>
+                    <div class="social-media flex">
+                        <i class="fa-brands fa-facebook fa-2xl"></i>
+                        <i class="fa-brands fa-instagram fa-2xl"></i>
+                        <i class="fa-brands fa-x-twitter fa-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+
+        <div class="playbar flex">
+            <div>Tu Hi Ho</div>
+            <div class="flex">
+                <div class="flex controls" >
+                    <img src="Assets/backward.svg" alt="backward" class="invert">
+                    <img src="Assets/play.svg" alt="play" class="invert">
+                    <img src="Assets/forward.svg" alt="forward" class="invert">
+                </div>   
+            </div>
+            <div class="volume flex">
+                <img src="Assets/speaker.svg" alt="speaker" class="invert">
+                <div class="volume-bar">
+                    <div class="volume-circle">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="seekbar">
+            <div class="circle">
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://kit.fontawesome.com/1ceb5c57dc.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
