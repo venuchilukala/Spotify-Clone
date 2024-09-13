@@ -263,9 +263,18 @@ body{
     font-size: 14px;
     justify-content: space-between;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .playNow{
     align-items: center;
     gap: 10px;
+}
+
+.controls img{
+    cursor: pointer;
+}
+
+.songinfo{
+    gap: 30px;
 }

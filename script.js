@@ -1,4 +1,5 @@
 console.log("JS Started")
+let currentSong = new Audio();
 
 async function getSongs() {
     
@@ -22,21 +23,29 @@ async function getSongs() {
     
 }
 
-const playMusic = (song)=>{
-    var audio = new Audio("/songs/" + song);
-    console.log(audio)
-    audio.play()
+const playMusic = (song, pause=false)=>{
+    // var audio = new Audio("/songs/" + song);
+    currentSong.src = "/songs/" + song
+    if(!pause){
+        currentSong.play()
+        play.src = "Assets/pause.svg"
+    }
+    // currentSong.play()
+    document.querySelector(".songName").innerHTML = decodeURI(song) ;
+    document.querySelector(".songTime").innerHTML = "00:00 / 00: 00";
 
-    audio.addEventListener("loadeddata", ()=>{
-        // console.log(audio.duration, audio.currentSrc, audio.currentTime)
-    })
+
+    // audio.addEventListener("loadeddata", ()=>{
+    //     // console.log(audio.duration, audio.currentSrc, audio.currentTime)
+    // })
 }
 
 async function main(){
-    let currentSong;
     //Get the list of songs
     let songs = await getSongs();
     // console.log(songs)
+
+    playMusic(songs[0],true)
 
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0]
     for(let song of songs){
@@ -60,6 +69,23 @@ async function main(){
             console.log(e.querySelector(".info").firstElementChild.innerHTML);
             playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim())
 
+        })
+
+        //Add event listeners to play previous, current ,next songs
+        play.addEventListener("click",()=>{
+            if(currentSong.paused){
+                currentSong.play();
+                play.src = "Assets/pause.svg"
+            }
+            else{
+                currentSong.pause();
+                play.src = "Assets/play.svg"
+            }
+        })
+
+        //Add eventListener to timeduration 
+        currentSong.addEventListener("timeupdate",()=>{
+            console.log(currentSong.currentTime, currentSong.duration)
         })
     })
 }
