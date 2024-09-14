@@ -135,5 +135,11 @@ async function main(){
         }
     })
 
+    //Add event listener to volue bar
+    volumeBar.addEventListener("change",(e)=>{
+        // console.log(e, e.target, e.target.value)
+        currentSong.volume = parseInt(e.target.value) / 100 
+    })
+
 }
 main()
