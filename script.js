@@ -61,7 +61,6 @@ async function getSongs(folder) {
 
     })
     return songs;
-
 }
 
 const playMusic = (song, pause = false) => {
@@ -77,11 +76,68 @@ const playMusic = (song, pause = false) => {
 
 }
 
+async function displayAlbums() {
+    let a = await fetch("http://127.0.0.1:5500/songs/");
+    let response = await a.text()
+    let div = document.createElement("div");
+    let cardContainer = document.querySelector(".card-container")
+    div.innerHTML = response
+    let anchors = div.getElementsByTagName("a")
+
+    let array = Array.from(anchors)
+    for (let index = 0; index < array.length; index++) {
+        const e = array[index]
+        if (e.href.includes("/songs/")) {
+            // console.log(e.href.split("/").slice(-1)[0])
+            let folder = e.href.split("/").slice(-1)[0];
+            let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+            let response = await a.json()
+            // console.log(response)
+            cardContainer.innerHTML = cardContainer.innerHTML + `<div class="card" data-folder="${folder}">
+                            <img src="/songs/${folder}/card.jpeg" alt="card" class="card-img">
+                            <h4>${response.title}</h4>
+                            <p>${response.description}</p>
+                        </div>`
+
+        }
+
+    }
+
+    //Load folder 
+    //using currentTarget because when target used it gives element we clicked
+    //but currentTarget gives which element we targeted for
+    Array.from(document.getElementsByClassName("card")).forEach(e => {
+        e.addEventListener("click", async item => {
+            console.log(item.currentTarget, item.currentTarget.dataset.folder);
+            songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
+
+        })
+    })
+
+    // Array.from(anchors).forEach(async e=>{
+    //     if(e.href.includes("/songs/")){
+    //         // console.log(e.href.split("/").slice(-1)[0])
+    //         let folder = e.href.split("/").slice(-1)[0];
+    //         let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+    //         let response = await a.json()
+    //         // console.log(response)
+    //         cardContainer.innerHTML = cardContainer.innerHTML + `<div class="card" data-folder="demo">
+    //                 <img src="/songs/${folder}/card.jpeg" alt="card" class="card-img">
+    //                 <h4>${response.title}</h4>
+    //                 <p>${response.description}</p>
+    //             </div>`
+
+    //     }
+    // })
+}
 
 async function main() {
     //Get the list of songs
     await getSongs("songs/demo");
     playMusic(songs[0], true)
+
+    //Display all albums on the page
+    displayAlbums()
 
     //Add event listeners to play previous, current ,next songs
     play.addEventListener("click", () => {
@@ -145,16 +201,7 @@ async function main() {
         currentSong.volume = parseInt(e.target.value) / 100
     })
 
-    //Load folder 
-    //using currentTarget because when target used it gives element we clicked
-    //but currentTarget gives which element we targeted for
-    Array.from(document.getElementsByClassName("card")).forEach(e => {
-        e.addEventListener("click", async item => {
-            console.log(item.currentTarget, item.currentTarget.dataset.folder);
-            songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
-
-        })
-    })
+    
 
 }
 main()
