@@ -25,6 +25,11 @@ body{
     margin-bottom: 16px;
 }
 
+.logo-container{
+    align-items: center;
+    gap: 10px;
+}
+
 .logo{
     padding: 5px 0px 0px 20px;
 }
@@ -194,23 +199,12 @@ body{
 .volume{
     align-items: center;
     gap: 10px;
-}
-/* 
-.volume-bar{
-    height: 4px;
-    width: 100px;
-    background-color: white;
-    position: relative;
+    cursor: pointer;
 }
 
-.volume-circle{
-    width: 12px;
-    height: 12px;
-    background-color: #ffffff;
-    position: absolute;
-    top: -3px;
-    border-radius: 50%;
-} */
+.volume input{
+    cursor: pointer;
+}
 
 .seekbar{
     height: 4px;
@@ -228,28 +222,6 @@ body{
     border-radius: 50%;
     transition: left 0.5s;
 }
-/* .seekbar {
-    height: 4px;
-    
-    background: black;
-    border-radius: 10px;
-    position: absolute;
-    bottom: 8px;
-    margin: 6px;
-    cursor: pointer;
-}
-
-.circle {
-    width: 13px;
-    height: 13px;
-    border-radius: 13px;
-    background-color: black;
-    position: relative;
-    bottom: 5px;
-    left: 0%;
-    transition: left 0.5s;
-} */
-
 
 .songList {
     height:400px;

@@ -14,6 +14,7 @@ function secondsToMinutesSeconds(seconds) {
     return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
 
+
 async function getSongs(folder) {
     currFolder = folder;
     let a = await fetch(`http://127.0.0.1:5500/${folder}/`);
@@ -31,7 +32,6 @@ async function getSongs(folder) {
             songs.push(element.href.split(`/${folder}/`)[1])
         }
     }
-    console.log(songs)
 
     //Show all songs in the platlist
     let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0]
@@ -77,10 +77,11 @@ const playMusic = (song, pause = false) => {
 }
 
 async function displayAlbums() {
+    
+    let cardContainer = document.querySelector(".card-container")
     let a = await fetch("http://127.0.0.1:5500/songs/");
     let response = await a.text()
     let div = document.createElement("div");
-    let cardContainer = document.querySelector(".card-container")
     div.innerHTML = response
     let anchors = div.getElementsByTagName("a")
 
@@ -88,11 +89,9 @@ async function displayAlbums() {
     for (let index = 0; index < array.length; index++) {
         const e = array[index]
         if (e.href.includes("/songs/")) {
-            // console.log(e.href.split("/").slice(-1)[0])
             let folder = e.href.split("/").slice(-1)[0];
             let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
             let response = await a.json()
-            // console.log(response)
             cardContainer.innerHTML = cardContainer.innerHTML + `<div class="card" data-folder="${folder}">
                             <img src="/songs/${folder}/card.jpeg" alt="card" class="card-img">
                             <h4>${response.title}</h4>
@@ -110,26 +109,12 @@ async function displayAlbums() {
         e.addEventListener("click", async item => {
             console.log(item.currentTarget, item.currentTarget.dataset.folder);
             songs = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
+            playMusic(songs[0])
 
         })
     })
-
-    // Array.from(anchors).forEach(async e=>{
-    //     if(e.href.includes("/songs/")){
-    //         // console.log(e.href.split("/").slice(-1)[0])
-    //         let folder = e.href.split("/").slice(-1)[0];
-    //         let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
-    //         let response = await a.json()
-    //         // console.log(response)
-    //         cardContainer.innerHTML = cardContainer.innerHTML + `<div class="card" data-folder="demo">
-    //                 <img src="/songs/${folder}/card.jpeg" alt="card" class="card-img">
-    //                 <h4>${response.title}</h4>
-    //                 <p>${response.description}</p>
-    //             </div>`
-
-    //     }
-    // })
 }
+
 
 async function main() {
     //Get the list of songs
@@ -166,14 +151,24 @@ async function main() {
 
 
     //Add event Listener to hamburger
-    document.querySelector(".hamburger").addEventListener("click", () => {
-        document.querySelector(".left").style.left = "0";
+    document.querySelector(".hamburger").addEventListener("click", (e) => {
+        // document.querySelector(".left").style.left = "0";
+        console.log(e.target)
+        if(e.target.src.includes("Assets/hamburger.svg")){
+            e.target.src = e.target.src.replace("Assets/hamburger.svg", "Assets/close.svg")
+            document.querySelector(".left").style.left = "0";
+        }
+        else{
+            e.target.src = e.target.src.replace("Assets/close.svg", "Assets/hamburger.svg", )
+            document.querySelector(".left").style.left = "-100%";
+            
+        }
     })
 
     //Add event Listener to close
-    document.querySelector(".close").addEventListener("click", () => {
-        document.querySelector(".left").style.left = "-100%";
-    })
+    // document.querySelector(".close").addEventListener("click", () => {
+    //     document.querySelector(".left").style.left = "-100%";
+    // })
 
     //Add event Listener to previous button
     previous.addEventListener("click", () => {
@@ -199,9 +194,20 @@ async function main() {
     volumeBar.addEventListener("change", (e) => {
         // console.log(e, e.target, e.target.value)
         currentSong.volume = parseInt(e.target.value) / 100
+    })  
+
+    //Add event listener to mute the volume 
+    document.querySelector(".volume>img").addEventListener("click", (e) =>{
+        if(e.target.src.includes("Assets/speaker.svg")){
+            e.target.src = e.target.src.replace("Assets/speaker.svg","Assets/mute.svg");
+            currentSong.volume = 0;
+            document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
+        }
+        else{
+            e.target.src = e.target.src.replace("Assets/mute.svg","Assets/speaker.svg");
+            currentSong.volume = 0.1;
+            document.querySelector(".range").getElementsByTagName("input")[0].value = 10;
+        }
     })
-
-    
-
 }
 main()

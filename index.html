@@ -13,7 +13,10 @@
         <div class="hamburger">
             <img src="Assets/hamburger.svg" class="invert" alt="hamburger">
         </div>
-        <img src="Assets/logo.svg" alt="logo" class="logo invert">
+        <div class="flex logo-container">
+            <img src="Assets/logo.svg" alt="logo" class="logo invert">
+            <h3>Spotify</h3>
+        </div>
         <div class="flex s-c">
             <img src="Assets/home.svg" alt="home" class="invert home">
             <div class="search-container">
@@ -32,21 +35,11 @@
                     <p>Your Library</p>
                 </div>
                 <i class="fa-regular fa-plus"></i>
-                 <img src="Assets/close.svg" class="invert close" alt="">
+                 <!-- <img src="Assets/close.svg" class="invert close" alt=""> -->
             </div>
             <div class="songList">
                 <ul>
-                    <!-- <li>
-                        <img src="Assets/music.svg" class="invert" alt="">
-                        <div class="info">
-                            <div>Song Name</div>
-                            <div>Song Artist</div>
-                        </div>
-                        <div class="playNow flex">
-                            <span>Play Now</span>
-                            <img src="Assets/play.svg" class="invert" alt="">
-                        </div>
-                    </li> -->
+                    <!-- list of songs in album  -->
                 </ul>
             </div>
         </div>
@@ -55,14 +48,7 @@
             <h2>Your Playlist</h2>
 
             <div class="card-container flex">
-                <div class="card" data-folder="demo">
-                    <img src="Assets/card.jpeg" alt="card" class="card-img">
-                    <p>Arjit Singh</p>
-                </div>
-                <div class="card" data-folder="devara">
-                    <img src="Assets/card.jpeg" alt="card" class="card-img">
-                    <p>Arjit Singh</p>
-                </div>
+                <!--Albums-->
             </div>
 
             <div class="footer flex">
@@ -124,11 +110,6 @@
                 <div class="range">
                     <input type="range" name="volume" id="volumeBar">
                 </div>
-                <!-- <div class="volume-bar">
-                    <div class="volume-circle">
-
-                    </div>
-                </div> -->
             </div>
         </div>
         <div class="seekbar">
